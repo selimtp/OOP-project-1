@@ -1,0 +1,2 @@
+Selim,2023510,1000,true
+tarik,22222,10000,false
