@@ -10,7 +10,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.wallet = wallet;
-        this.isAdmin = isAdmin;
+        this.isAdmin = false;
 
     }
 
