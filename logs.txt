@@ -1,0 +1,3 @@
+tarik,Slot Machine,2000.0,Lose
+tarik,Slot Machine,1090.0,Win
+tarik,Slot Machine,500.0,Win

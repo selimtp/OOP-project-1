@@ -19,7 +19,7 @@ public class FileManager {
                     String password = parts[1];
                     double wallet = Double.parseDouble(parts[2]);
                     User newUser = new User(username,password,wallet);
-                    if(parts[3] != null){
+                    if(Boolean.parseBoolean(parts[3])){
                         newUser.setAdmin(true);
                     }
                     list.add(newUser);
@@ -34,7 +34,7 @@ public class FileManager {
     public static void saveUsers(List<User> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFile))) {
             for (User user : users) {
-                writer.write(user.getUsername() + "," + user.getPassword() + "," + user.getWallet());
+                writer.write(user.getUsername() + "," + user.getPassword() + "," + user.getWallet()+","+user.isAdmin());
                 writer.newLine();
             }
         } catch (IOException e) {

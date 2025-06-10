@@ -54,8 +54,11 @@ public class BetManager {
 
         Game selectedGame = activeGames.get(choice);
         boolean win = selectedGame.play(user, amount);
-
-        System.out.println(win ? "You won!" : "You lost.");
+        if(win){
+            System.out.println("You won!");
+        }else{
+            System.out.println("You lost.");
+        }
         System.out.println("New balance: $" + user.getWallet());
 
         FileManager.saveBetLog(user.getUsername(), selectedGame.getName(), amount, win);
@@ -64,5 +67,21 @@ public class BetManager {
     public void showLogs() {
         List<String> logs = FileManager.readBetLogs();
         logs.forEach(System.out::println);
+    }
+    public void showUserBetLogs(String username) {
+        List<String> logs = FileManager.readBetLogs();
+        boolean found = false;
+
+        System.out.println("=== Bet Logs for " + username + " ===");
+        for (String log : logs) {
+            if (log.startsWith(username + ",")) {
+                System.out.println(log);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("No logs found for user.");
+        }
     }
 }
