@@ -1,2 +1,5 @@
 Selim,2023510,2000.0,true
 tarik,22222,9590.0,false
+poyraz,33333,10100.0,false
+mevlut,104310,1000.0,false
+yaso,12345,990.0,false

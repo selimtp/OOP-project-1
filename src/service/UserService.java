@@ -1,21 +1,19 @@
-package manager;
+package service;
 
-import file.FileManager;
-import mod.*;
+import repo.FileManager;
+import model.*;
 import java.util.*;
 
-public class UserManager {
+public class UserService {
     private List<User> users;
 
-    public UserManager() {
+    public UserService() {
         users = FileManager.loadUsers();
     }
 
     public boolean isAdmin(Credentials creds) {
-        for (User u : users) {
-            if (u.getUsername().equals(creds.getUsername()) &&
-                    u.getPassword().equals(creds.getPassword()) &&
-                    u.isAdmin()) {
+        for (User user : users) {
+            if (user.getUsername().equals(creds.getUsername()) && user.getPassword().equals(creds.getPassword()) && user.isAdmin()) {
                 return true;
             }
         }
@@ -23,10 +21,10 @@ public class UserManager {
     }
 
     public User authenticate(Credentials creds) {
-        for (User u : users) {
-            if (u.getUsername().equals(creds.getUsername()) &&
-                    u.getPassword().equals(creds.getPassword())) {
-                return u;
+        for (User user : users) {
+            if (user.getUsername().equals(creds.getUsername()) && user.getPassword().equals(creds.getPassword())) {
+                FileManager.logAction(user.getUsername(), "Logged in");
+                return user;
             }
         }
         return null;
@@ -42,6 +40,8 @@ public class UserManager {
         users.add(user);
         FileManager.saveUsers(users);
         System.out.println("User registered successfully.");
+        FileManager.logAction(user.getUsername(), "Registered");
+
     }
 
     public void listUsers() {
@@ -54,6 +54,7 @@ public class UserManager {
                 u.setWallet(u.getWallet() + amount);
                 FileManager.saveUsers(users);
                 System.out.println("Funds added.");
+                FileManager.logAction(username, "Added $" + amount + " to wallet");
                 return;
             }
         }

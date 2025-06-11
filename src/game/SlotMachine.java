@@ -1,6 +1,6 @@
 package game;
 
-import mod.User;
+import model.User;
 import java.util.Random;
 
 public class SlotMachine extends Game {
@@ -14,7 +14,7 @@ public class SlotMachine extends Game {
         boolean win = rand.nextDouble() > 0.5;
 
         if (win) {
-            user.setWallet(user.getWallet() + betAmount); // kazandıysa 2x
+            user.setWallet(user.getWallet() + betAmount);
         } else {
             user.setWallet(user.getWallet() - betAmount);
         }

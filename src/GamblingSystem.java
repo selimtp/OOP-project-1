@@ -1,11 +1,11 @@
-import manager.*;
+import service.*;
 
 public class GamblingSystem {
     public static void main(String[] args) {
-        MenuManager menuManager = new MenuManager();
-        UserManager userManager = new UserManager();
-        BetManager betManager = new BetManager();
+        MenuService menuService = new MenuService();
+        UserService userService = new UserService();
+        BetService betService = new BetService();
 
-        menuManager.run(userManager, betManager);
+        menuService.run(userService, betService);
     }
 }

@@ -1,4 +1,4 @@
-package mod;
+package model;
 
 public class Credentials {
     private String username;

@@ -1,7 +1,6 @@
-// game/Game.java
 package game;
 
-import mod.User;
+import model.User;
 
 public abstract class Game {
     protected String name;
@@ -18,6 +17,7 @@ public abstract class Game {
     public boolean isActive() {
         return isActive;
     }
+
     public void setActive(boolean active) {
         this.isActive = active;
     }
