@@ -1,0 +1,29 @@
+2025-06-11T02:46:31.612863100 | poyraz | Logged in
+2025-06-11T02:46:37.064902200 | poyraz | Slot Machine,$222.0,false
+2025-06-11T02:46:57.624827500 | poyraz | Roulette,$1000.0,false
+2025-06-11T02:47:02.485703600 | poyraz | Logged out
+2025-06-11T10:51:50.604771700 | mevlut | Registered
+2025-06-11T10:51:57.354991400 | mevlut | Logged in
+2025-06-11T10:52:23.151743300 | mevlut | Added $1000.0 to wallet
+2025-06-11T10:53:15.822503800 | mevlut | Roulette,$1100.0,false
+2025-06-11T10:53:40.501033 | mevlut | Logged out
+2025-06-11T10:53:50.823449800 | yaso | Registered
+2025-06-11T10:53:55.305992300 | yaso | Logged in
+2025-06-11T10:54:02.590507100 | yaso | Added $3100.0 to wallet
+2025-06-11T10:54:42.502824500 | yaso | Roulette,$3131.0,false
+2025-06-11T10:55:12.111834600 | yaso | Roulette,$69.0,false
+2025-06-11T10:55:25.313136 | yaso | Added $1000.0 to wallet
+2025-06-11T10:55:48.655033900 | yaso | Roulette,$500.0,false
+2025-06-11T10:56:22.841633800 | yaso | Roulette,$500.0,true
+2025-06-11T10:56:57.562652400 | yaso | Slot Machine,$10.0,false
+2025-06-11T11:08:09.375470200 | yaso | Logged out
+2025-06-11T11:09:59.918703600 | mevlut | Logged in
+2025-06-11T11:10:07.234006500 | mevlut | Added $1000.0 to wallet
+2025-06-11T11:10:11.717600500 | mevlut | Logged out
+2025-06-11T12:47:32.411306900 | mevlut | Logged in
+2025-06-11T12:47:49.288400600 | mevlut | Roulette,$10.0,true
+2025-06-11T12:53:59.529754400 | poyraz | Logged in
+2025-06-11T12:54:30.927998300 | poyraz | Roulette,$1000.0,true
+2025-06-11T12:55:16.929496100 | poyraz | Logged out
+2025-06-11T20:43:03.727769400 | mevlut | Logged in
+2025-06-11T21:19:23.708821800 | john doe | Registered

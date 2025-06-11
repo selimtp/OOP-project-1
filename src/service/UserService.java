@@ -13,7 +13,7 @@ public class UserService {
 
     public boolean isAdmin(Credentials creds) {
         for (User user : users) {
-            if (user.getUsername().equals(creds.getUsername()) && user.getPassword().equals(creds.getPassword()) && user.isAdmin()) {
+            if (user.getUsername().equals(creds.getUsername()) && FileManager.decryption(user.getPassword()).equals(creds.getPassword()) && user.isAdmin()) {
                 return true;
             }
         }
@@ -22,7 +22,7 @@ public class UserService {
 
     public User authenticate(Credentials creds) {
         for (User user : users) {
-            if (user.getUsername().equals(creds.getUsername()) && user.getPassword().equals(creds.getPassword())) {
+            if (user.getUsername().equals(creds.getUsername()) && FileManager.decryption(user.getPassword()).equals(creds.getPassword())) {
                 FileManager.logAction(user.getUsername(), "Logged in");
                 return user;
             }
@@ -31,8 +31,8 @@ public class UserService {
     }
 
     public void register(User user) {
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
+        for (User user1 : users) {
+            if (user1.getUsername().equals(user.getUsername())) {
                 System.out.println("User already exists.");
                 return;
             }

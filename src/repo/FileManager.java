@@ -18,6 +18,7 @@ public class FileManager {
                 String[] parts = line.split(",");
                 if (parts.length >= 3) {
                     String username = parts[0];
+
                     String password = parts[1];
                     double wallet = Double.parseDouble(parts[2]);
                     User newUser = new User(username,password,wallet);
@@ -65,14 +66,40 @@ public class FileManager {
             System.out.println("Error writing action log.");
         }
     }
-//    public static void saveBetLog(String username, String game, double amount, boolean win) {
+    public static String encryption(String str){
+        Random random = new Random();
+        int rnd = random.nextInt(10,50);
+        String result = String.valueOf(rnd);
+
+        for(int i = 0; i < str.length(); i++){
+            result +=  (char) (str.charAt(i) + rnd);
+        }
+        return result;
+
+    }
+    public static String decryption(String enStr){
+        String result = "";
+        String strKey = "";
+        strKey += enStr.charAt(0);
+        strKey += enStr.charAt(1);
+        int key = Integer.parseInt(strKey);
+
+        for(int i = 2; i < enStr.length(); i++){
+            result += (char)(enStr.charAt(i) - key);
+        }
+        return result;
+
+    }
+
+
+//    public static void saveBetLog(String username, String service.gameService, double amount, boolean win) {
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
 //            String w = "Win";
 //            if(!win){
 //                w = "Lose";
 //            }
 //
-//            writer.write(username + "," + game + "," + amount + "," + w);
+//            writer.write(username + "," + service.gameService + "," + amount + "," + w);
 //            writer.newLine();
 //
 //        } catch (IOException e) {

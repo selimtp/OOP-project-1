@@ -1,4 +1,4 @@
-package game;
+package service.gameService;
 
 import model.User;
 

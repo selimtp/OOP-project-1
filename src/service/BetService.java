@@ -2,7 +2,7 @@ package service;
 
 import model.User;
 import repo.FileManager;
-import game.*;
+import service.gameService.*;
 
 import java.util.*;
 
@@ -38,7 +38,7 @@ public class BetService {
             return;
         }
 
-        System.out.print("Enter bet amount: ");
+        System.out.print("Enter bet amount(0 to exit): ");
         double amount;
         try {
             amount = Double.parseDouble(scanner.nextLine());
@@ -46,7 +46,10 @@ public class BetService {
             System.out.println("Invalid amount.");
             return;
         }
-
+        if(amount == 0){
+            System.out.println("Exiting...");
+            return;
+        }
         if (amount > user.getWallet()) {
             System.out.println("Insufficient balance.");
             return;
@@ -121,11 +124,12 @@ public class BetService {
             String input;
             int choice;
             while (true){
-                System.out.print("Select game to change settings (or " + (games.size() + 1) + " to exit): ");
+                System.out.print("Select service.gameService to change settings (or " + (games.size() + 1) + " to exit): ");
                 choice = scanner.nextInt();
 
-                if (choice < 1 || choice > games.size()) {
-                    System.out.println("Invalid game choice.");
+                if (choice < 1 || choice > games.size()+1) {
+                    System.out.println("Invalid service.gameService choice.");
+
 
                 }else break;
             }

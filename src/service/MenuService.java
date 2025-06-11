@@ -65,7 +65,7 @@ public class MenuService {
             System.out.println("Password too short.");
         }
 
-        User user = new User(username, password, 100.0);
+        User user = new User(username, FileManager.encryption(password), 100.0);
         userService.register(user);
     }
 
@@ -87,10 +87,16 @@ public class MenuService {
                     System.out.println("Balance: $" + user.getWallet());
                     break;
                 case "3":
-                    System.out.print("Enter amount: ");
+                    System.out.print("Enter amount(0 to exit): ");
                     double amt = Double.parseDouble(scanner.nextLine());
-                    userService.addFunds(user.getUsername(), amt);
-                    System.out.print("Your new balance is: $" + user.getWallet() );
+
+                    if(amt == 0){
+                        System.out.println("Exiting...");
+                    }else{
+                        userService.addFunds(user.getUsername(), amt);
+                        System.out.print("Your new balance is: $" + user.getWallet() );
+                    }
+
                     break;
                 case "4":
                     System.out.println("Logging out...");
@@ -122,9 +128,13 @@ public class MenuService {
                 case "2":
                     System.out.print("Enter username: ");
                     String user0 = scanner.nextLine().trim();
-                    System.out.print("Enter amount: ");
+                    System.out.print("Enter amount(0 to exit): ");
                     double amt = Double.parseDouble(scanner.nextLine());
-                    userService.addFunds(user0, amt);
+                    if(amt == 0){
+                        System.out.println("Exiting...");
+                    }else{
+                        userService.addFunds(user0, amt);
+                    }
                     break;
                 case "3":
                     betService.showLogs();
