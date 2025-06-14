@@ -1,7 +1,9 @@
 package service;
 
-import repo.FileManager;
+import util.PasswordManage;
 import model.*;
+import repo.LogManager;
+
 import java.util.Scanner;
 
 public class MenuService {
@@ -65,7 +67,7 @@ public class MenuService {
             System.out.println("Password too short.");
         }
 
-        User user = new User(username, FileManager.encryption(password), 100.0);
+        User user = new User(username, PasswordManage.encryption(password), 100.0);
         userService.register(user);
     }
 
@@ -81,7 +83,7 @@ public class MenuService {
 
             switch (choice) {
                 case "1":
-                    betService.placeBet(user);
+                    betService.placeBet(user,userService);
                     break;
                 case "2":
                     System.out.println("Balance: $" + user.getWallet());
@@ -100,7 +102,7 @@ public class MenuService {
                     break;
                 case "4":
                     System.out.println("Logging out...");
-                    FileManager.logAction(user.getUsername(), "Logged out");
+                    LogManager.logAction(user.getUsername(), "Logged out");
                     return;
                 default: System.out.println("Invalid option.");
             }
@@ -137,7 +139,7 @@ public class MenuService {
                     }
                     break;
                 case "3":
-                    betService.showLogs();
+                    LogManager.showLogs();
                     break;
                 case "4":
                     System.out.print("Enter username: ");
@@ -148,7 +150,7 @@ public class MenuService {
                 case "5":
                     System.out.print("Enter username: ");
                     String user2 = scanner.nextLine().trim();
-                    betService.showUserActionLogs(user2);
+                    LogManager.showUserActionLogs(user2);
                     break;
                 case "6":
                     betService.modifyGameSettings();

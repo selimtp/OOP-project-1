@@ -3,6 +3,7 @@ package service.gameService;
 import model.User;
 
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,9 +23,10 @@ public class Roulette extends Game {
     }
 
     @Override
-    public boolean play(User user, double betAmount) {
+    public GameResult play(User user, double betAmount) {
         System.out.println("0 - Black\n1 - Red\n2 - Number");
         int choice = -1;
+
         while (choice < 0 || choice > 2) {
             System.out.print("Place your bet on: ");
             try {
@@ -37,7 +39,7 @@ public class Roulette extends Game {
         int selectedNum = -1;
         if (choice == 2) {
             while (selectedNum < 0 || selectedNum > 36) {
-                System.out.print("Choose number 4 number (0-36): ");
+                System.out.print("Choose number to bet on (0-36): ");
                 try {
                     selectedNum = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
@@ -45,24 +47,35 @@ public class Roulette extends Game {
                 }
             }
         }
-
+//        result != 0 && result % 2 == 0
+        String gameName = "Roulette";
         try {
             int result = spin();
-            if (choice == 0 && result != 0 && result % 2 == 0) {
-                user.setWallet(user.getWallet() + betAmount);
-                return true;
-            } else if (choice == 1 && result % 2 == 1) {
-                user.setWallet(user.getWallet() + betAmount);
-                return true;
+            boolean win = false;
+            double amountChanged = -betAmount;
+            String message;
+
+            if (choice == 0 && getColor(result).equals(ANSI_BLACK)) {
+                amountChanged = betAmount;
+                win = true;
+                message = "You won on Black! +" + betAmount;
+            } else if (choice == 1 && getColor(result).equals(ANSI_RED)) {
+                amountChanged = betAmount;
+                win = true;
+                message = "You won on Red! +" + betAmount;
             } else if (choice == 2 && result == selectedNum) {
-                user.setWallet(user.getWallet() + (36* betAmount));
-                return true;
+                amountChanged = betAmount * 35;
+                win = true;
+                message = "You hit the exact number! +" + amountChanged;
+            } else {
+
+                message = "You lost. -" + betAmount;
             }
+            
+            return new GameResult(gameName,win, amountChanged, message);
         } catch (InterruptedException e) {
-            System.out.println("Spin error.");
+            return new GameResult(gameName,false, 0, "Spin interrupted. No bet processed.");
         }
-        user.setWallet(user.getWallet() - betAmount);
-        return false;
     }
 
     private int spin() throws InterruptedException {
@@ -90,7 +103,6 @@ public class Roulette extends Game {
 
         int result = wheel.get(3);
         System.out.println("\n🎯 The ball lands on: " + getColor(result) + ANSI_BOLD + result + ANSI_RESET);
-
         return result;
     }
 
@@ -110,6 +122,14 @@ public class Roulette extends Game {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    @Override
+    public String getRules() {
+        return "Roulette Rules:\n" +
+                "- Choose to bet on Red (odd), Black (even), or a number (0–36).\n" +
+                "- Win 1x for correct color, 36x for correct number.\n" +
+                "- If you lose, bet amount is deducted.";
+    }
+
 
     // ANSI color codes
     private static final String ANSI_RESET = "\u001B[0m";

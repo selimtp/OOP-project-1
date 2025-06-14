@@ -1,9 +1,7 @@
 package service;
 
 import model.User;
-import repo.FileManager;
 import service.gameService.*;
-
 import java.util.*;
 
 public class BetService {
@@ -11,10 +9,10 @@ public class BetService {
     private final List<Game> games;
 
     public BetService() {
-        games = List.of(new SlotMachine(),new Roulette());
+        games = List.of(new SlotMachine(),new Roulette(),new Blackjack());
     }
 
-    public void placeBet(User user) {
+    public void placeBet(User user,UserService userService) {
         List<Game> activeGames = games.stream().filter(Game::isActive).toList();
         if (activeGames.isEmpty()) {
             System.out.println("No games are currently available.");
@@ -37,80 +35,52 @@ public class BetService {
             System.out.println("Invalid input.");
             return;
         }
+        boolean flag = true;
+        while (flag){
+            System.out.println();
+            System.out.println("---Play Menu---");
+            System.out.println("1. Play Game");
+            System.out.println("2. Get rules");
+            System.out.println("3. Exit to the previous page");
+            System.out.println("Choose:");
+            int choice1;
+            try {
+                choice1 = Integer.parseInt(scanner.nextLine()) ;
+                if (choice1 < 1 || choice >= 4) {
+                    System.out.println("Invalid choice.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input.");
+                return;
+            }
+            if(choice1 == 1){
+                System.out.print("Enter bet amount: ");
+                double amount;
+                try {
+                    amount = Double.parseDouble(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid amount.");
+                    return;
+                }
+                if (amount > user.getWallet()) {
+                    System.out.println("Insufficient balance.");
+                    return;
+                }
 
-        System.out.print("Enter bet amount(0 to exit): ");
-        double amount;
-        try {
-            amount = Double.parseDouble(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid amount.");
-            return;
-        }
-        if(amount == 0){
-            System.out.println("Exiting...");
-            return;
-        }
-        if (amount > user.getWallet()) {
-            System.out.println("Insufficient balance.");
-            return;
-        }
+                Game selectedGame = activeGames.get(choice);
+                GameResult gameResult = selectedGame.play(user, amount);
+                System.out.println(gameResult.getMessage());
+                userService.walletChange(user.getUsername(),gameResult);
 
-        Game selectedGame = activeGames.get(choice);
-        boolean win = selectedGame.play(user, amount);
-        if(win){
-            System.out.println("You won!");
-        }else{
-            System.out.println("You lost.");
-        }
-        System.out.println("New balance: $" + user.getWallet());
-        FileManager.logAction(user.getUsername(), selectedGame.getName() + ",$" + amount + "," + win);
 
-    }
-    public void showLogs() {
-        List<String> logs = FileManager.readUserActionLogs();
-        System.out.println("=== User Action Logs ===");
-        logs.forEach(System.out::println);
-    }
-
-    public void showUserActionLogs(String username) {
-        List<String> logs = FileManager.readUserActionLogs();
-        boolean found = false;
-
-        System.out.println("=== Action Logs for " + username + " ===");
-        for (String log : logs) {
-            String[] parts = log.split(" \\| ");
-            if (parts.length >= 2 && parts[1].trim().equalsIgnoreCase(username)) {
-                System.out.println(log);
-                found = true;
+            }else if(choice1 == 2){
+                System.out.println(activeGames.get(choice).getRules());
+            }else{
+                flag = false;
             }
         }
-
-        if (!found) {
-            System.out.println("No action logs found for user.");
-        }
     }
-
-//    public void showLogs() {
-//        List<String> logs = FileManager.readBetLogs();
-//        logs.forEach(System.out::println);
-//    }
-//    public void showUserBetLogs(String username) {
-//        List<String> logs = FileManager.readBetLogs();
-//        boolean found = false;
-//
-//        System.out.println("=== Bet Logs for " + username + " ===");
-//        for (String log : logs) {
-//            if (log.startsWith(username + ",")) {
-//                System.out.println(log);
-//                found = true;
-//            }
-//        }
-//
-//        if (!found) {
-//            System.out.println("No logs found for user.");
-//        }
-//
-//    }
 
     public void modifyGameSettings() {
         while (true) {
@@ -124,11 +94,11 @@ public class BetService {
             String input;
             int choice;
             while (true){
-                System.out.print("Select service.gameService to change settings (or " + (games.size() + 1) + " to exit): ");
+                System.out.print("Select game to change settings (or " + (games.size() + 1) + " to exit): ");
                 choice = scanner.nextInt();
 
                 if (choice < 1 || choice > games.size()+1) {
-                    System.out.println("Invalid service.gameService choice.");
+                    System.out.println("Invalid game choice.");
 
 
                 }else break;

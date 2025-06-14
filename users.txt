@@ -1,6 +1,8 @@
 Selim,33SQSTVRQRXV,2000.0,true
-tarik,44^^^^^,9590.0,false
-poyraz,16CCCCC,10100.0,false
+tarik,44^^^^^,8199.0,false
+poyraz,16CCCCC,9892.0,false
 mevlut,39XW[ZXW,1000.0,false
 yaso,36UVWXY,990.0,false
 john doe,11txt}>@,100.0,false
+4131,37XVXXV,100.0,false
+yaso1,17BCDEFG,75547.0,false

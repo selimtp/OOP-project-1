@@ -11,6 +11,7 @@ public abstract class Game {
         this.isActive = true;
     }
 
+
     public String getName() {
         return name;
     }
@@ -22,7 +23,8 @@ public abstract class Game {
         this.isActive = active;
     }
 
-    public abstract boolean play(User user, double betAmount);
+    public abstract GameResult play(User user, double betAmount);
+    public abstract String getRules();
 
     @Override
     public String toString() {
