@@ -58,7 +58,17 @@ public class UserService{
                 u.setWallet(u.getWallet() + gameResult.getAmount());
                 FileManager.saveUsers(users);
                 System.out.println("New balance: $" + u.getWallet());
-                LogManager.logAction(u.getUsername(), gameResult.getGameName() + ",$" + gameResult.getAmount() + "," + (gameResult.isWin() ? "win" : "lose"));
+                String win;
+                if(gameResult.isWin()){
+                    win = "win";
+                }else{
+                    if(gameResult.getAmount() == 0){
+                        win = "draw";
+                    }else{
+                        win = "lose";
+                    }
+                }
+                LogManager.logAction(u.getUsername(), gameResult.getGameName() + ",$" + gameResult.getAmount() + "," + win);
             }
         }
     }
