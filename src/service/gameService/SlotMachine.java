@@ -14,7 +14,7 @@ public class SlotMachine extends Game {
 
     @Override
     public GameResult play(User user, double betAmount) {
-        System.out.println("\nSpinning the reels... 🎰");
+        System.out.println("\nSpinning the reels... ");
 
         String[] result = new String[3];
         for (int i = 0; i < 3; i++) {

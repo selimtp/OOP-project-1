@@ -24,7 +24,9 @@ public class Roulette extends Game {
 
     @Override
     public GameResult play(User user, double betAmount) {
-        System.out.println("0 - Black\n1 - Red\n2 - Number");
+        System.out.println("0 - Black");
+        System.out.println("1 - Red");
+        System.out.println("2 - Number");
         int choice = -1;
 
         while (choice < 0 || choice > 2) {
@@ -47,7 +49,6 @@ public class Roulette extends Game {
                 }
             }
         }
-//        result != 0 && result % 2 == 0
         String gameName = "Roulette";
         try {
             int result = spin();
@@ -102,7 +103,7 @@ public class Roulette extends Game {
         }
 
         int result = wheel.get(3);
-        System.out.println("\n🎯 The ball lands on: " + getColor(result) + ANSI_BOLD + result + ANSI_RESET);
+        System.out.println("\nThe ball lands on: " + getColor(result) + ANSI_BOLD + result + ANSI_RESET);
         return result;
     }
 
